@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { DatabaseModule } from './database/database.module';
+import { FilesModule } from './files/files.module';
 
 @Module({
   imports: [
@@ -13,7 +14,8 @@ import { DatabaseModule } from './database/database.module';
     TodoModule,
     DatabaseModule,
     UserModule,
-    DatabaseModule
+    DatabaseModule,
+    FilesModule
   ],
   controllers: [],
   providers: [],
