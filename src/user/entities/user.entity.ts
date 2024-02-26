@@ -6,25 +6,34 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ nullable: false })
+  @Column({ nullable: false ,unique:true})
   username: string;
 
   @CreateDateColumn()
   dateCreated: Date;
 
-  @Column({nullable:true})
+  @Column({nullable:false})
   password:string;
 
-  @OneToMany(() => Todo, (todo) => todo.user, {cascade:true, eager: true,onDelete:'CASCADE'})
+  @Column('bool',{default:true})
+  isActive:boolean
+
+  @Column('text',{unique:true})
+  email:string
+
+  @Column('text',{array: true, default:["user"]})
+  roles:string[]
+
+  @OneToMany(() => Todo, (todo) => todo.user, {cascade:true,onDelete:'CASCADE'})
   todo: Todo[];
 
   @BeforeInsert()
-  check(){
-
+  checkFields(){
+this.email=this.email.toLowerCase().trim()
   }
   @BeforeUpdate()
-  checkUpdate(){
-
+  checkUpdateFields(){
+    this.email=this.email.toLowerCase().trim()
   }
 
 }

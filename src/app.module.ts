@@ -21,8 +21,5 @@ import { FilesModule } from './files/files.module';
   providers: [],
 })
 export class AppModule {
-  static port:number;
-  constructor(private readonly configService:ConfigService){
-    AppModule.port = +this.configService.get('PORT')
-  }
+ 
 }

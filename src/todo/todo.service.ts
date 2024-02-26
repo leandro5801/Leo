@@ -23,9 +23,9 @@ export class TodoService {
 
   private readonly logger = new Logger('TodoService');
 
-  async create(createTodoDto: CreateTodoDto) {
+  async create(createTodoDto: CreateTodoDto, user:User) {
     console.log(createTodoDto);
-    const { user = null, ...restDetails } = createTodoDto;
+    const {  ...restDetails } = createTodoDto;
     const newTodo = this.todoRepository.create({ ...restDetails, user: user });
 
     return this.todoRepository.save(newTodo);
@@ -33,12 +33,12 @@ export class TodoService {
 
   async findAll(paginatorDto: PaginatorDto) {
     try {
-      const { limit = 100, offset = 0 } = paginatorDto;
+    //  const { limit = 100, offset = 0 } = paginatorDto;
 
       const todos = await this.todoRepository.find({
         relations: { user: true },
-        take: limit,
-        skip: offset,
+        /*take: limit,
+        skip: offset,*/
       });
       return todos.map((todos) => ({
         ...todos,
@@ -62,10 +62,11 @@ export class TodoService {
     return todo;
   }
 
-  async update(id: number, updateTodoDto: UpdateTodoDto) {
+  async update(id: number, updateTodoDto: UpdateTodoDto, user:User) {
     const todo = await this.todoRepository.preload({
       id,
       ...updateTodoDto,
+      user
     });
 
     if (!todo) {
@@ -80,4 +81,6 @@ export class TodoService {
     if (!todo) throw new NotFoundException('No encontrado');
     return await this.todoRepository.remove(todo);
   }
+
+
 }

@@ -8,7 +8,8 @@ import { join } from 'path';
 export class FilesService {
  
   findOneImage(id: string) {
-    const path = join(__dirname,'../../static/images',id);
+    const path = join(__dirname,'../../../static/images',id);
+console.log(path);
 
     if (!existsSync(path)) {
       throw new BadRequestException(`Could not find`)

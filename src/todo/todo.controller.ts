@@ -13,14 +13,20 @@ import { CreateTodoDto } from './dto/create-todo.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
 import { Todo } from './entities/todo.entity';
 import { PaginatorDto } from 'common/dto/paginator';
+import { Auth, GetUser } from '../user/decorators';
+import { validRoles } from '../user/interfaces/valid-roles';
+import { User } from '../user/entities/user.entity';
+
 
 @Controller('todo')
+@Auth()
 export class TodoController {
   constructor(private readonly todoService: TodoService) {}
 
   @Post()
-   create(@Body() createTodoDto: CreateTodoDto) {
-    return  this.todoService.create(createTodoDto);
+  
+   create(@Body() createTodoDto: CreateTodoDto, @GetUser() user: User) {
+    return  this.todoService.create(createTodoDto,user);
   }
 
   @Get()
@@ -34,8 +40,8 @@ export class TodoController {
   }
 
   @Patch(':id')
-   update(@Param('id',ParseIntPipe) id: number, @Body() updateTodoDto: UpdateTodoDto) {
-    return  this.todoService.update(id, updateTodoDto);
+   update(@Param('id',ParseIntPipe) id: number, @Body() updateTodoDto: UpdateTodoDto,@GetUser() user: User) {
+    return  this.todoService.update(id, updateTodoDto,user);
   }
 
   @Delete(':id')

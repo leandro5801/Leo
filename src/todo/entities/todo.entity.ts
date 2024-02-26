@@ -21,7 +21,11 @@ export class Todo {
   @IsBoolean()
   done: boolean;
 
-  @ManyToOne((type) => User, (user) => user.todo)
+  @Column({type: 'text',array:true, nullable: true })
+  @IsString()
+  images: string[];
+
+  @ManyToOne((type) => User, (user) => user.todo ,{eager: true})
   @JoinColumn({ name: 'id_user' })
   user: User;
 }
