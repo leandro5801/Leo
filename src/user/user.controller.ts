@@ -67,7 +67,7 @@ export class UserController {
 
   //Testing Authorization with decorator customizing with another decorators (@Auth)
   @Get('private3')
- @Auth()
+ @Auth(validRoles.admin)
   testingPrivateRoute3(@GetUser() user: User) {
     return {
       user,

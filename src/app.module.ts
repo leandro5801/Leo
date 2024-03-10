@@ -7,6 +7,7 @@ import { UserModule } from './user/user.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { DatabaseModule } from './database/database.module';
 import { FilesModule } from './files/files.module';
+import { MessagesWebSocketsModule } from './messages-web-sockets/messages-web-sockets.module';
 
 @Module({
   imports: [
@@ -15,7 +16,8 @@ import { FilesModule } from './files/files.module';
     DatabaseModule,
     UserModule,
     DatabaseModule,
-    FilesModule
+    FilesModule,
+    MessagesWebSocketsModule
   ],
   controllers: [],
   providers: [],

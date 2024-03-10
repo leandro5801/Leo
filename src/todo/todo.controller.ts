@@ -19,17 +19,18 @@ import { User } from '../user/entities/user.entity';
 
 
 @Controller('todo')
-@Auth()
+
 export class TodoController {
   constructor(private readonly todoService: TodoService) {}
 
   @Post()
-  
+  @Auth(validRoles.admin)
    create(@Body() createTodoDto: CreateTodoDto, @GetUser() user: User) {
     return  this.todoService.create(createTodoDto,user);
   }
 
   @Get()
+  @Auth(validRoles.admin)
    findAll(paginatorDto:PaginatorDto){
     return  this.todoService.findAll(paginatorDto);
   }
