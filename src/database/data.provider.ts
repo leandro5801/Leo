@@ -11,10 +11,7 @@ const DataProvider: DynamicModule = TypeOrmModule.forRootAsync({
       config.get('NODE_ENV') === Environment.Development;
 
     const db = {
-      ssl: isDevelopmentEnvironment===false,
-      extra: {
-        ssl: isDevelopmentEnvironment===false ? { rejectUnauthorized: false } : null,
-      },
+  
       type: 'postgres',
       host: config.get('HOST_DB'),
       port: config.get('PORT_DB'),
